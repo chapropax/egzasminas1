@@ -1,0 +1,15 @@
+// GET all post
+GET http://localhost:5000/clients
+
+### // register post
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+     "name": "Megan",
+    "email": "megan@email.com",
+    "date": "2022-08-11"
+}
+
+### // register post
+DELETE  http://localhost:5000/clients/6308acc8447a60140febf59c

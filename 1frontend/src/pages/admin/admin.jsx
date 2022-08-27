@@ -10,7 +10,7 @@ import {
 } from './admin.style';
 
 const AdminPage = () => {
-  const [todos, setTodos] = useState();
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:5000/clients').then((res) => {
@@ -26,10 +26,10 @@ const AdminPage = () => {
     });
   };
 
-  const RemoveUserHandler = (email) => {
-    axios.delete(`http://localhost:5000/clients/${email}`).then((res) => {
-      getData();
-    });
+  const RemoveUserHandler = async (_id) => {
+    axios.delete(`http://localhost:5000/clients/${_id}`);
+
+    getData();
   };
 
   return (
@@ -37,25 +37,23 @@ const AdminPage = () => {
       {todos ? (
         <div>
           {todos.map((todo) => {
-            const { name, email, date, time, id } = todo;
+            const { name, email, date, time, _id } = todo;
 
             return (
-              <StyledTodo key={email}>
+              <StyledTodo key={_id}>
                 <StyledText>
                   <p>{name}</p>
-                  <p>{id}</p>
+
                   <p>{email}</p>
                   <p>{date}</p>
                   <p>{time}</p>
                 </StyledText>
                 <StyledUP>
-                  <StyledButtonDelete
-                    onClick={(e) => RemoveUserHandler({ id })}
-                  >
+                  <StyledButtonDelete onClick={() => RemoveUserHandler(_id)}>
                     delete
                   </StyledButtonDelete>
-                  <StyledButtonUpdate key={id}>
-                    <a href={`admin/edituser/${email}`}>edit</a>
+                  <StyledButtonUpdate key={_id}>
+                    <a href={`admin/edituser/${_id}`}>edit</a>
                   </StyledButtonUpdate>
                 </StyledUP>
               </StyledTodo>

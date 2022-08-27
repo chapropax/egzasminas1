@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { RegisterContainer } from './Register.styled';
 
 const Register = ({ title }) => {
+  const [message, setMessage] = useState('');
   const url = 'http://localhost:5000/register';
   const [data, setData] = useState({
     name: '',
@@ -19,15 +20,17 @@ const Register = ({ title }) => {
       email: data.email,
       date: data.date,
       time: data.time,
-    }).then((res) => {
-      console.log(res.data);
     });
   }
   function handle(e) {
     const newdata = { ...data };
     newdata[e.target.id] = e.target.value;
     setData(newdata);
-    console.log(newdata);
+    setMessage('');
+  }
+
+  function buttonHandle(e) {
+    setMessage('Užregistruota vizitui');
   }
   return (
     <RegisterContainer>
@@ -62,7 +65,11 @@ const Register = ({ title }) => {
           type='time'
           placeholder='Registracijos laikas'
         />
-        <button>Registruotis</button>
+        <button type='submit' id='registerButton' onClick={buttonHandle}>
+          Registruotis
+        </button>
+
+        <p>{message}</p>
       </form>
       <p></p>
     </RegisterContainer>

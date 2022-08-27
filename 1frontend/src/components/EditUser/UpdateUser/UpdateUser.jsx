@@ -1,59 +1,69 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { useLocation } from 'react-router-dom';
-
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { StyledContainer } from './UpdateUser.style';
 const UpdateUser = ({ title }) => {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const [message, setMessage] = useState('');
+  const { id } = useParams();
 
-  console.log(location);
-  const url = 'http://localhost:5000/clients/:id';
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/clients/${id}`).then((res) => {
+      const responseTodos = res.data;
+      setTodos(responseTodos);
+    });
+  }, [id]);
+
+  const url = `http://localhost:5000/clients/${id}`;
   const [data, setData] = useState({
-    name: '',
-    email: '',
-    date: '',
-    time: '',
+    name: todos.name,
+    email: todos.email,
+    date: todos.date,
+    time: todos.time,
   });
 
   function submit(e) {
     e.preventDefault();
-    Axios.post(url, {
+    Axios.put(url, {
       name: data.name,
       email: data.email,
       date: data.date,
       time: data.time,
-    }).then((res) => {
-      console.log(res.data);
     });
   }
   function handle(e) {
     const newdata = { ...data };
     newdata[e.target.id] = e.target.value;
     setData(newdata);
-    console.log(newdata);
+    setMessage('');
+  }
+  function buttonHandle(e) {
+    setMessage('Informacija atnaujinta');
   }
   return (
-    <div>
-      <h1>{title} </h1>
+    <StyledContainer>
+      <h1>Informacijos atnaujinimas </h1>
       <form onSubmit={(e) => submit(e)}>
         <input
           onChange={(e) => handle(e)}
           id='name'
-          defaultValue={data.name}
+          defaultValue={todos.name}
           type='text'
           placeholder='Vardas Pavardė'
         />
         <input
           onChange={(e) => handle(e)}
           id='email'
-          defaultValue={data.email}
+          defaultValue={todos.email}
           type='text'
           placeholder='El.paštas'
         />
         <input
           onChange={(e) => handle(e)}
           id='date'
-          defaultValue={data.date}
+          defaultValue={todos.date}
           type='date'
           placeholder='Registracijos  laikas'
         />
@@ -61,14 +71,14 @@ const UpdateUser = ({ title }) => {
         <input
           onChange={(e) => handle(e)}
           id='time'
-          defaultValue={data.date}
+          defaultValue={todos.time}
           type='time'
           placeholder='Registracijos laikas'
         />
-        <button>Registruotis</button>
+        <button onClick={buttonHandle}>Atnaujinti informacija</button>
       </form>
-      <p></p>
-    </div>
+      <p>{message}</p>
+    </StyledContainer>
   );
 };
 

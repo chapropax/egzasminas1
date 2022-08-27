@@ -30,6 +30,7 @@ export const StyledButtonDelete = styled.button`
   background-color: red;
   border: 0;
   border-radius: 10px;
+  cursor: pointer;
 `;
 export const StyledButtonUpdate = styled.button`
   padding: 0px 20px;

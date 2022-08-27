@@ -42,11 +42,11 @@ const AdminPage = () => {
             return (
               <StyledTodo key={_id}>
                 <StyledText>
-                  <p>{name}</p>
+                  <p className='name'>{name}</p>
 
-                  <p>{email}</p>
-                  <p>{date}</p>
-                  <p>{time}</p>
+                  <p className='email'>{email}</p>
+                  <p className='date'>{date}</p>
+                  <p className='time'>{time}</p>
                 </StyledText>
                 <StyledUP>
                   <StyledButtonDelete onClick={() => RemoveUserHandler(_id)}>

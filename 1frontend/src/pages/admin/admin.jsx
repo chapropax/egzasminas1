@@ -40,13 +40,13 @@ const AdminPage = () => {
         <StyledExampleInside>
           <p className='name'>Vardas Pavardė</p>
           <p className='email'>El.paštas</p>
-          <p className='date'>Užregistruota data</p>
-          <p className='time'>Užregistruotas laikas</p>
+          <p className='date'>Vizito data</p>
+          <p className='time'>Vizito laikas</p>
         </StyledExampleInside>
       </StyledExample>
       <StyledAdmin>
         {todos ? (
-          <div>
+          <div className='container'>
             {todos.map((todo) => {
               const { name, email, date, time, _id } = todo;
 

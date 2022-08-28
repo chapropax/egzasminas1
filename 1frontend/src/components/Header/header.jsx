@@ -9,10 +9,14 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              <Link to='/'>Guest page</Link>
+              <Link to='/' className='guestpage'>
+                Guest page
+              </Link>
             </li>
             <li>
-              <Link to='/admin'>Admin page</Link>
+              <Link to='/admin' className='guestpage'>
+                Admin page
+              </Link>
             </li>
           </ul>
         </nav>

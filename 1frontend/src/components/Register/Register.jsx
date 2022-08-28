@@ -11,6 +11,7 @@ const Register = ({ title }) => {
     email: '',
     date: '',
     time: '',
+    errorMessage: '',
   });
 
   function submit(e) {
